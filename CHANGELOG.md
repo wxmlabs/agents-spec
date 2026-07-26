@@ -35,7 +35,7 @@ Format:
   - Skill file format with YAML front matter
   - Rule file format (plain Markdown)
   - Priority/conflict resolution rules
-  - Encoding rule (ASCII only)
+  - Encoding rule (plain readable text)
   - `AGENTS.md` -- agent installation and guidance
   - `.agents/README.md` -- skill/rule inventory
   - `.agents/skills/agents-spec/SKILL.md` -- full framework spec
@@ -43,7 +43,7 @@ Format:
 
 ### Upgrade Actions
 
-Initial release. No upgrade path from a prior version.
+Initial versioned release.
 
 If the project has no `.agents/` directory, perform a fresh install by
 following the installation instructions in `AGENTS.md`.

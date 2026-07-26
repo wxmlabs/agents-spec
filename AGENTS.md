@@ -129,7 +129,7 @@ Post-Install Validation checklist.
 
 ### Method 3: Create manually
 
-1. Create `.agents/rules/` (empty directory)
+1. Create `.agents/rules/` and `.agents/skills/` (empty directories)
 2. Create `.agents/skills/agents-spec/` with `SKILL.md` from
    `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`
 3. Create `.agents/VERSION` with content from
@@ -173,6 +173,11 @@ After the checklist passes, execute Steps 1 through 5 of the Agent Loading Proto
 above to confirm that all layers load without errors. Report any missing or
 unreadable files to the user.
 
+Note: User-level directories (`~/.agent/`) may be empty after a fresh install.
+This is normal and should NOT be reported as an error. The directories merely
+need to exist; content is added by the user over time.
+
+
 ## Framework Reference
 
 ### Project-level (`.agents/`)
@@ -204,7 +209,9 @@ For the full framework definition, read: `.agents/skills/agents-spec/SKILL.md`.
 For the changelog and upgrade instructions, read the upstream `CHANGELOG.md`:
 `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/CHANGELOG.md`
 
-## Encoding Rule (CRITICAL)
+## Encoding Rule
 
-All Agent-facing documents (AGENTS.md, SKILL.md, README.md, rules)
-MUST only contain ASCII characters. No emoji, no CJK characters, no Unicode symbols.
+All Agent-facing documents (AGENTS.md, SKILL.md, README.md, rules, CHANGELOG.md)
+MUST be written in plain, readable text that AI agents can parse without ambiguity,
+garbled output, or confusion. Use clear, well-structured Markdown. Avoid characters
+or formatting that may not render correctly across different agent toolchains.

@@ -7,14 +7,10 @@ into user projects.
 ## Encoding
 
 All agent-facing documents (AGENTS.md, SKILL.md, README.md, CHANGELOG.md,
-DEV_RULES.md, rules, VERSION) MUST contain only ASCII characters.
-No emoji, no CJK characters, no Unicode symbols.
-
-Verify before committing:
-```bash
-grep -rP '[\x80-\xFF]' AGENTS.md CHANGELOG.md README.md VERSION DEV_RULES.md .agents/
-# No output = pass
-```
+DEV_RULES.md, rules, VERSION) MUST be written in plain, readable text that
+AI agents can parse without ambiguity, garbled output, or confusion.
+Use clear, well-structured Markdown. Avoid characters or formatting that
+may not render correctly across different agent toolchains.
 
 ## File Pollution Prevention
 
@@ -68,7 +64,7 @@ bump the version following semantic versioning:
 
 - **PATCH** (0.0.X): Fixes, clarifications, non-functional changes.
   - Typo fixes
-  - ASCII encoding fixes
+  - Encoding fixes
   - Documentation clarifications
 
 ### Release Procedure
@@ -103,12 +99,7 @@ When preparing a release with a version bump:
 5. If `SKILL.md` changed, add upgrade actions to fetch and overwrite
    `{target}/.agents/skills/agents-spec/SKILL.md`.
 
-6. Run the ASCII encoding check:
-   ```bash
-   grep -rP '[\x80-\xFF]' AGENTS.md CHANGELOG.md README.md VERSION DEV_RULES.md .agents/
-   ```
-
-7. Commit with message: `release: bump version to X.Y.Z`
+6. Commit with message: `release: bump version to X.Y.Z`
 
 ## Testing
 
@@ -131,4 +122,4 @@ Before committing changes, perform a quick validation:
    - Copy the 3 white-listed files
    - Verify no development-only files leaked
 
-3. Verify all required files pass ASCII encoding check.
+3. Verify all required files are well-formed and readable.

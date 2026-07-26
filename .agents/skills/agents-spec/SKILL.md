@@ -3,7 +3,7 @@ name: agents-spec
 description: |
   The reusable .agents/ directory framework for organizing AI Agent skills and rules.
   This skill defines the directory structure, shared vs local separation (git-tracked vs personal),
-  encoding rules, and priority/conflict resolution between layers.
+  encoding guidelines, and priority/conflict resolution between layers.
   Use this skill when setting up the .agents/ infrastructure in a new project,
   or when understanding how rules and skills interact in the existing project.
   Triggers include "set up agent skills", "create agent rules", ".agents directory",
@@ -41,7 +41,10 @@ from the previous version.
 An agent working in a project that has adopted agents-spec SHOULD periodically
 check whether the installed version is the latest.
 
-**Check procedure:**
+**Check timing:**
+- At minimum, check at the start of the first conversation each day.
+- Also check immediately when the user says "check agent-spec version",
+  "is agents-spec up to date", "update agent-spec", or similar.
 
 1. Read the installed version from `{project}/.agents/VERSION`.
    If this file does not exist, the installation predates versioning (treat as "0.0.0").
@@ -54,8 +57,7 @@ check whether the installed version is the latest.
    - If local == upstream: the framework is current.
    - If local > upstream: local is ahead (possibly a dev/pre-release). No action needed.
 
-4. When the user says "check agent-spec version", "is agents-spec up to date",
-   "update agent-spec", or similar, perform this check immediately.
+4. When local < upstream, proceed to the upgrade flow below.
 
 ### How Agents Perform Upgrades
 
@@ -87,6 +89,9 @@ upgrade by following the changelog.
    latest upstream version.
 
 5. Report to the user what was changed during the upgrade.
+
+6. After the upgrade is complete, run the Post-Install Validation checklist
+   from `AGENTS.md` to confirm the framework is intact after the upgrade.
 
 Example upgrade flow for going from 0.1.0 to 0.3.0:
 - Fetch CHANGELOG.md
@@ -173,9 +178,9 @@ Within each level: shared rules override local rules; local skills override shar
 
 ## Encoding Rule
 
-All files under `.agents/` (SKILL.md, README.md, rule files) MUST use ASCII encoding only.
-No emoji, no CJK characters, no Unicode symbols.
-This ensures reliable processing across all LLM/Agent toolchains.
+All files under `.agents/` (SKILL.md, README.md, rule files) MUST be written
+in plain, readable text that AI agents can parse without ambiguity, garbled
+output, or confusion. Use clear, well-structured Markdown.
 
 ## Skill File Format
 
@@ -199,13 +204,22 @@ They define constraints and priority directives, not workflows or how-to guides.
 
 ## Setting Up in a New Project
 
-1. Create `.agents/` with the directory structure above.
-2. Add `.agents/local/` to `.gitignore`.
-3. Create `.agents/README.md` with the project's skill/rule inventory.
-4. Add the Encoding Rule and Priority rules to `AGENTS.md`.
-5. Add shared skills/rules under `.agents/skills/` and `.agents/rules/`.
-6. Each developer adds their local skills/rules under `.agents/local/`.
-7. Optionally, create `~/.agent/` directories for cross-project user skills and rules.
+For full installation instructions, read the `AGENTS.md` file at the upstream
+repo root:
+`https://raw.githubusercontent.com/wxmlabs/agents-spec/master/AGENTS.md`
+
+The AGENTS.md file contains the authoritative installation procedure, including
+pre-install checks, three installation methods, post-install validation, and the
+agent loading protocol. This SKILL.md is a supplementary reference and should
+not override AGENTS.md on installation matters.
+
+In brief, installation involves:
+1. Creating the `.agents/` directory structure with all required subdirectories
+2. Fetching `SKILL.md`, `VERSION`, and `AGENTS.md` from the upstream repository
+3. Adding `.agents/local/` to `.gitignore`
+4. Creating `~/.agent/` user-level directories
+5. Running the Post-Install Validation checklist
+6. Executing the Agent Loading Protocol to confirm all layers load correctly
 
 ## Rules vs Skills: Separation Principle
 
