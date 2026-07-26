@@ -38,7 +38,6 @@ Files that exist in this repo but are EXCLUDED from installation:
 - `LICENSE`
 - `.gitignore`
 - `.agents/README.md`  -- auto-generated per-project inventory
-- `.agents/VERSION`    -- local copy for self-validation
 - `.git/`, `.idea/`, `.vscode/`
 
 When adding a new development-only file, verify it is NOT in the
@@ -76,12 +75,7 @@ When preparing a release with a version bump:
    echo "0.2.0" > VERSION
    ```
 
-2. Copy the new VERSION to `.agents/VERSION`:
-   ```
-   cp VERSION .agents/VERSION
-   ```
-
-3. Update `CHANGELOG.md`:
+2. Update `CHANGELOG.md`:
    - Add a new `## [X.Y.Z] - YYYY-MM-DD` section at the top
    - List changes under `### Changes`
    - Write Upgrade Actions under `### Upgrade Actions`
@@ -93,13 +87,13 @@ When preparing a release with a version bump:
      - `Append <content> to <file>`
      - `Update .agents/VERSION to <version>`
 
-4. If `AGENTS.md` installation instructions changed, add upgrade actions
+3. If `AGENTS.md` installation instructions changed, add upgrade actions
    to fetch and overwrite `{target}/AGENTS.md`.
 
-5. If `SKILL.md` changed, add upgrade actions to fetch and overwrite
+4. If `SKILL.md` changed, add upgrade actions to fetch and overwrite
    `{target}/.agents/skills/agents-spec/SKILL.md`.
 
-6. Commit with message: `release: bump version to X.Y.Z`
+5. Commit with message: `release: bump version to X.Y.Z`
 
 ## Testing
 
@@ -108,7 +102,6 @@ Before committing changes, perform a quick validation:
 1. Verify directory structure:
    ```
    .agents/
-     VERSION
      README.md
      rules/
      skills/agents-spec/SKILL.md
