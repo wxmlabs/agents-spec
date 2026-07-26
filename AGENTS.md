@@ -31,8 +31,8 @@ These are developer-private and NOT committed to git.
 
 **Step 5: Load user-level rules and skills**
 
-List and read all files in `~/.agent/rules/` and `~/.agent/skills/` (user-shared).
-Then list and read all files in `~/.agent/local/rules/` and `~/.agent/local/skills/` (user-private).
+List and read all files in `~/.agents/rules/` and `~/.agents/skills/` (user-shared).
+Then list and read all files in `~/.agents/local/rules/` and `~/.agents/local/skills/` (user-private).
 
 **Step 6: If working in the upstream agents-spec repo**
 
@@ -46,14 +46,14 @@ When the same capability is defined in multiple layers:
 1. Project shared rules (`.agents/rules/`)
 2. Project meta-rules (`AGENTS.md`, `.agents/README.md`)
 3. Project local rules (`.agents/local/rules/`)
-4. User shared rules (`~/.agent/rules/`)
-5. User local rules (`~/.agent/local/rules/`)
+4. User shared rules (`~/.agents/rules/`)
+5. User local rules (`~/.agents/local/rules/`)
 
 **Skills priority (highest to lowest):**
 1. Project local skills (`.agents/local/skills/`)
 2. Project shared skills (`.agents/skills/`)
-3. User local skills (`~/.agent/local/skills/`)
-4. User shared skills (`~/.agent/skills/`)
+3. User local skills (`~/.agents/local/skills/`)
+4. User shared skills (`~/.agents/skills/`)
 
 In summary: project-level always takes precedence over user-level.
 Within each level: shared rules override local rules; local skills override shared skills.
@@ -93,10 +93,10 @@ Directories to create (if not exist):
 - `{target}/.agents/skills/agents-spec/`
 - `{target}/.agents/local/rules/`
 - `{target}/.agents/local/skills/`
-- `~/.agent/rules/`
-- `~/.agent/skills/`
-- `~/.agent/local/rules/`
-- `~/.agent/local/skills/`
+- `~/.agents/rules/`
+- `~/.agents/skills/`
+- `~/.agents/local/rules/`
+- `~/.agents/local/skills/`
 
 Then append to `{target}/.gitignore` (if not already present):
 ```
@@ -123,7 +123,7 @@ cp -n /tmp/agents-spec/VERSION {target}/.agents/VERSION
 cp -n /tmp/agents-spec/AGENTS.md {target}/AGENTS.md
 ```
 
-Then create empty directories (including `~/.agent/` dirs), append `.gitignore`,
+Then create empty directories (including `~/.agents/` dirs), append `.gitignore`,
 and create `README.md` as in Method 1. After all steps are complete, run the
 Post-Install Validation checklist.
 
@@ -138,8 +138,8 @@ Post-Install Validation checklist.
 5. Create `.agents/README.md` listing the skill inventory
 6. Write this `AGENTS.md` to the target project root
 7. Append `.agents/local/` to the target's `.gitignore`
-8. Create `~/.agent/rules/`, `~/.agent/skills/`, `~/.agent/local/rules/`,
-   `~/.agent/local/skills/` (empty)
+8. Create `~/.agents/rules/`, `~/.agents/skills/`, `~/.agents/local/rules/`,
+   `~/.agents/local/skills/` (empty)
 
 After all steps are complete, run the Post-Install Validation checklist.
 
@@ -166,14 +166,14 @@ Check that all required files and directories exist:
 - `.agents/local/rules/` and `.agents/local/skills/` exist
 - `AGENTS.md` exists at project root
 - `.gitignore` contains `.agents/local/`
-- `~/.agent/rules/` and `~/.agent/skills/` exist
-- `~/.agent/local/rules/` and `~/.agent/local/skills/` exist
+- `~/.agents/rules/` and `~/.agents/skills/` exist
+- `~/.agents/local/rules/` and `~/.agents/local/skills/` exist
 
 After the checklist passes, execute Steps 1 through 5 of the Agent Loading Protocol
 above to confirm that all layers load without errors. Report any missing or
 unreadable files to the user.
 
-Note: User-level directories (`~/.agent/`) may be empty after a fresh install.
+Note: User-level directories (`~/.agents/`) may be empty after a fresh install.
 This is normal and should NOT be reported as an error. The directories merely
 need to exist; content is added by the user over time.
 
@@ -193,10 +193,10 @@ need to exist; content is added by the user over time.
     skills/                     # Developer-private skills
 ```
 
-### User-level (`~/.agent/`)
+### User-level (`~/.agents/`)
 
 ```
-~/.agent/
+~/.agents/
   rules/                        # User-shared rules (across all projects)
   skills/                       # User-shared skills (across all projects)
   local/

@@ -70,7 +70,7 @@ No installed files changed in this release.
 
 - **Added**: Initial agents-spec framework.
   - `.agents/` directory structure (rules/, skills/, local/)
-  - `~/.agent/` user-level directory structure
+  - `~/.agents/` user-level directory structure
   - Skill file format with YAML front matter
   - Rule file format (plain Markdown)
   - Priority/conflict resolution rules

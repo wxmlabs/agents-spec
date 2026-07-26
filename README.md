@@ -16,7 +16,7 @@ No CLI scripts needed. Your AI agent does the installation for you.
 1. Create the `.agents/` directory structure in your project.
 2. Copy framework skills and rules.
 3. Append `.agents/local/` to `.gitignore`.
-4. Create `~/.agent/` user-level directories.
+4. Create `~/.agents/` user-level directories.
 5. **Tell you to add a rule to your agent's entry point** so it loads skills/rules from all layers.
 
 ## Structure
@@ -32,10 +32,10 @@ No CLI scripts needed. Your AI agent does the installation for you.
     skills/       # Developer-private skills (gitignored)
 ```
 
-### User-level (`~/.agent/`)
+### User-level (`~/.agents/`)
 
 ```
-~/.agent/
+~/.agents/
   rules/          # User-shared rules (across all projects)
   skills/         # User-shared skills (across all projects)
   local/

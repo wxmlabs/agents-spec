@@ -119,10 +119,10 @@ Example upgrade flow for going from 0.1.0 to 0.3.0:
       ...                       # IDE-specific integrations, local workflows
 ```
 
-### User-level (`~/.agent/`)
+### User-level (`~/.agents/`)
 
 ```
-~/.agent/
+~/.agents/
   rules/                        # User-shared rules (across all projects)
     ...                         # Personal coding standards, preferences
   skills/                       # User-shared skills (across all projects)
@@ -148,10 +148,10 @@ Example upgrade flow for going from 0.1.0 to 0.3.0:
 
 | Layer | Location | Git | Audience | Purpose |
 |-------|----------|-----|----------|---------|
-| User rules | `~/.agent/rules/` | N/A | Current user | Cross-project personal standards |
-| User skills | `~/.agent/skills/` | N/A | Current user | Cross-project personal workflows |
-| User local rules | `~/.agent/local/rules/` | N/A | Current user | Machine-specific rules |
-| User local skills | `~/.agent/local/skills/` | N/A | Current user | Machine-specific skills |
+| User rules | `~/.agents/rules/` | N/A | Current user | Cross-project personal standards |
+| User skills | `~/.agents/skills/` | N/A | Current user | Cross-project personal workflows |
+| User local rules | `~/.agents/local/rules/` | N/A | Current user | Machine-specific rules |
+| User local skills | `~/.agents/local/skills/` | N/A | Current user | Machine-specific skills |
 
 ## Priority / Conflict Resolution
 
@@ -163,15 +163,15 @@ applies (highest to lowest):
 1. Project shared rules (`.agents/rules/`) -- team conventions win
 2. Project meta-rules (`AGENTS.md`, `.agents/README.md`)
 3. Project local rules (`.agents/local/rules/`)
-4. User shared rules (`~/.agent/rules/`)
-5. User local rules (`~/.agent/local/rules/`)
+4. User shared rules (`~/.agents/rules/`)
+5. User local rules (`~/.agents/local/rules/`)
 
 ### Skills Priority
 
 1. Project local skills (`.agents/local/skills/`)
 2. Project shared skills (`.agents/skills/`)
-3. User local skills (`~/.agent/local/skills/`)
-4. User shared skills (`~/.agent/skills/`)
+3. User local skills (`~/.agents/local/skills/`)
+4. User shared skills (`~/.agents/skills/`)
 
 In summary: project-level always takes precedence over user-level.
 Within each level: shared rules override local rules; local skills override shared skills.
@@ -217,7 +217,7 @@ In brief, installation involves:
 1. Creating the `.agents/` directory structure with all required subdirectories
 2. Fetching `SKILL.md`, `VERSION`, and `AGENTS.md` from the upstream repository
 3. Adding `.agents/local/` to `.gitignore`
-4. Creating `~/.agent/` user-level directories
+4. Creating `~/.agents/` user-level directories
 5. Running the Post-Install Validation checklist
 6. Executing the Agent Loading Protocol to confirm all layers load correctly
 

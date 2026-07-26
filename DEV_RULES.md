@@ -26,10 +26,10 @@ These files are created as EMPTY directories (no content copied):
 - `{target}/.agents/skills/`
 - `{target}/.agents/local/rules/`
 - `{target}/.agents/local/skills/`
-- `~/.agent/rules/`
-- `~/.agent/skills/`
-- `~/.agent/local/rules/`
-- `~/.agent/local/skills/`
+- `~/.agents/rules/`
+- `~/.agents/skills/`
+- `~/.agents/local/rules/`
+- `~/.agents/local/skills/`
 
 Files that exist in this repo but are EXCLUDED from installation:
 - `CHANGELOG.md`       -- framework version history, read by agents from upstream URL
