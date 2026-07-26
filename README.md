@@ -59,9 +59,13 @@ When installed, it is copied to `.agents/VERSION` in the target project.
 An agent working in an agents-spec project can check for updates by comparing
 `.agents/VERSION` against `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/VERSION`.
 
+`CHANGELOG.md` records what changed in each version and provides
+machine-actionable upgrade steps. Agents use it to perform incremental upgrades.
+
 ## Documentation
 
 - `AGENTS.md` -- project-level agent guidance (includes install instructions for agents)
 - `VERSION` -- current framework version (semver)
+- `CHANGELOG.md` -- version history with agent- actionable upgrade actions
 - `.agents/README.md` -- skill and rule inventory
 - `.agents/skills/agents-spec/SKILL.md` -- full framework specification

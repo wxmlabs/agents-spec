@@ -105,6 +105,9 @@ Agent skills and rules are stored in two layers:
 
 For the full framework definition, read: `.agents/skills/agents-spec/SKILL.md`.
 
+For the changelog and upgrade instructions, read the upstream `CHANGELOG.md`:
+`https://raw.githubusercontent.com/wxmlabs/agents-spec/master/CHANGELOG.md`
+
 Agents MUST read and follow applicable skill/rule documents from ALL layers when
 performing tasks. Documents are loaded in priority order (see below).
 

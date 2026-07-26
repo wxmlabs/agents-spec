@@ -32,6 +32,10 @@ the upstream repo root for the latest installation instructions.
 The framework version is stored in a plain-text `VERSION` file at the repo root.
 When installed into a project, it is copied to `.agents/VERSION`.
 
+A `CHANGELOG.md` in the upstream repo records what changed in each version
+and, critically, what upgrade actions the agent must take when moving
+from the previous version.
+
 ### How Agents Check for Updates
 
 An agent working in a project that has adopted agents-spec SHOULD periodically
@@ -46,13 +50,51 @@ check whether the installed version is the latest.
    `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/VERSION`
 
 3. Compare the two versions using semantic versioning rules:
-   - If local < upstream: the framework is outdated. Inform the user and offer to update.
-     To update, re-run the installation using the latest `AGENTS.md` instructions.
+   - If local < upstream: the framework is outdated. Proceed to the upgrade flow below.
    - If local == upstream: the framework is current.
    - If local > upstream: local is ahead (possibly a dev/pre-release). No action needed.
 
 4. When the user says "check agent-spec version", "is agents-spec up to date",
    "update agent-spec", or similar, perform this check immediately.
+
+### How Agents Perform Upgrades
+
+When the installed version (V_local) is older than the upstream version (V_upstream),
+the agent MUST NOT simply re-install from scratch -- it must perform an incremental
+upgrade by following the changelog.
+
+**Upgrade procedure:**
+
+1. Fetch the changelog from the upstream repository:
+   `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/CHANGELOG.md`
+
+2. Parse the changelog to find all version entries between V_local (exclusive)
+   and V_upstream (inclusive).
+
+   The changelog format uses level-2 Markdown headings for each version:
+   `## [X.Y.Z] - YYYY-MM-DD`
+
+   Each version entry has an `### Upgrade Actions` section containing a numbered
+   list of steps with concrete file operations.
+
+3. Execute the Upgrade Actions of each intermediate version in ascending order
+   (oldest first, newest last). For each step:
+   - Follow the described file operation (fetch, create, delete, replace, append).
+   - If a step conflicts with local modifications, warn the user and ask for guidance.
+   - Do NOT skip steps unless the user explicitly approves.
+
+4. After all upgrade actions are executed, update `.agents/VERSION` to the
+   latest upstream version.
+
+5. Report to the user what was changed during the upgrade.
+
+Example upgrade flow for going from 0.1.0 to 0.3.0:
+- Fetch CHANGELOG.md
+- Find entries for [0.2.0] and [0.3.0]
+- Execute Upgrade Actions from [0.2.0]
+- Execute Upgrade Actions from [0.3.0]
+- Write "0.3.0" to `.agents/VERSION`
+- Report summary to user
 
 ## Directory Structure
 
