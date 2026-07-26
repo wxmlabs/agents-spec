@@ -38,7 +38,6 @@ Format:
    and overwrite `{target}/AGENTS.md`.
 3. Fetch `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`
    and overwrite `{target}/.agents/skills/agents-spec/SKILL.md`.
-4. If `~/.agent/` exists, rename it to `~/.agents/`.
 
 ---
 

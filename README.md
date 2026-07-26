@@ -11,6 +11,12 @@ The agent reads `AGENTS.md`, discovers the install instructions, and sets up the
 
 No CLI scripts needed. Your AI agent does the installation for you.
 
+Copy this into your agent:
+
+```
+Install the agents-spec framework from https://github.com/wxmlabs/agents-spec into this project.
+```
+
 ## What the Agent Will Do
 
 1. Create the `.agents/` directory structure in your project.
