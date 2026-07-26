@@ -25,6 +25,28 @@ Format:
 
 ---
 
+## [0.1.1] - 2026-07-27
+
+### Changes
+
+- **Fixed**: Installation Method 3 now explicitly creates `.agents/skills/` directory.
+- **Fixed**: Upgrade procedure now includes Post-Install Validation (Step 6).
+- **Fixed**: SKILL.md "Setting Up" section no longer duplicates AGENTS.md instructions; delegates to authoritative source.
+- **Fixed**: CHANGELOG 0.1.0 wording ("No upgrade path" -> "Initial versioned release").
+- **Changed**: Encoding rule relaxed from "ASCII only" to "plain, readable text" across all documents.
+- **Changed**: Upgrade check timing clarified (first conversation each day + on explicit user request).
+- **Changed**: DEV_RULES.md release procedure simplified (removed ASCII check step).
+
+### Upgrade Actions
+
+1. Update `.agents/VERSION` to 0.1.1.
+2. Fetch `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/AGENTS.md`
+   and overwrite `{target}/AGENTS.md`.
+3. Fetch `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`
+   and overwrite `{target}/.agents/skills/agents-spec/SKILL.md`.
+
+---
+
 ## [0.1.0] - 2026-07-27
 
 ### Changes
