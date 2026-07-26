@@ -10,32 +10,42 @@ This file serves two purposes:
 When instructed to "add agents-spec", "install agent-spec", or given the URL
 `https://github.com/wxmlabs/agents-spec`, install this framework into the target project.
 
-### Method 1: Use the install script
+### Method 1: Fetch from upstream repo (recommended)
 
-On Unix / macOS / WSL / Git Bash:
-```bash
-git clone https://github.com/wxmlabs/agents-spec /tmp/agents-spec
-sh /tmp/agents-spec/bin/agents-spec.sh init .
-```
+Fetch the latest framework files from the upstream repository and place them in the
+target project root. Do NOT overwrite any files that already exist -- instead, warn
+the user and let them decide.
 
-On Windows cmd / PowerShell:
-```bat
-git clone https://github.com/wxmlabs/agents-spec %TEMP%\agents-spec
-%TEMP%\agents-spec\bin\agents-spec.bat init .
-```
+Files to fetch:
+- `.agents/skills/agents-spec/SKILL.md` from
+  `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`
+  (place in `{target}/.agents/skills/agents-spec/SKILL.md`)
+- This `AGENTS.md` itself, placed at `{target}/AGENTS.md`
 
-### Method 2: Copy from cloned repo
+Directories to create (if not exist):
+- `{target}/.agents/rules/`
+- `{target}/.agents/skills/`
+- `{target}/.agents/local/rules/`
+- `{target}/.agents/local/skills/`
 
-```bash
-git clone https://github.com/wxmlabs/agents-spec /tmp/agents-spec
-cp -r /tmp/agents-spec/.agents/ .
-cp /tmp/agents-spec/AGENTS.md .
-```
-
-Then append to `.gitignore`:
+Then append to `{target}/.gitignore` (if not already present):
 ```
 .agents/local/
 ```
+
+Create or update `{target}/.agents/README.md` with a skill/rule inventory listing.
+
+### Method 2: Clone and copy
+
+```bash
+git clone https://github.com/wxmlabs/agents-spec /tmp/agents-spec
+# Copy framework files, skipping any that already exist in target
+mkdir -p {target}/.agents/skills/agents-spec
+cp -n /tmp/agents-spec/.agents/skills/agents-spec/SKILL.md {target}/.agents/skills/agents-spec/SKILL.md
+cp -n /tmp/agents-spec/AGENTS.md {target}/AGENTS.md
+```
+
+Then create empty directories, append `.gitignore`, and create `README.md` as in Method 1.
 
 ### Method 3: Create manually
 
@@ -49,14 +59,29 @@ Then append to `.gitignore`:
 7. Create `~/.agent/rules/`, `~/.agent/skills/`, `~/.agent/local/rules/`,
    `~/.agent/local/skills/` (empty)
 
+### After Installation: Modify Agent Entry Point
+
+CRITICAL: After installing the framework, tell the user they MUST add a rule to
+their agent's main entry point (e.g., the agent's system prompt, project rules,
+or equivalent configuration) instructing the agent to load and follow skill/rule
+documents from all layers. The rule should state:
+
+```
+Before performing any task, read and follow applicable skill/rule documents from:
+1. .agents/skills/ and .agents/rules/ (project shared)
+2. AGENTS.md and .agents/README.md (project meta-rules)
+3. .agents/local/skills/ and .agents/local/rules/ (project local)
+4. ~/.agent/skills/ and ~/.agent/rules/ (user shared)
+5. ~/.agent/local/skills/ and ~/.agent/local/rules/ (user local)
+
+Priority: project-level > user-level.
+For rules: shared rules > local rules.
+For skills: local skills > shared skills.
+```
+
 ## Post-Install Validation
 
-Run the validate script (pick the right one for your OS):
-
-Unix: `sh bin/agents-spec.sh validate`
-Windows: `bin\agents-spec.bat validate`
-
-Manual check:
+Manual check that all required files and directories exist:
 - `.agents/rules/` exists
 - `.agents/skills/agents-spec/SKILL.md` exists
 - `.agents/local/rules/` and `.agents/local/skills/` exist

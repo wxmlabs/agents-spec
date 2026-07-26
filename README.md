@@ -6,34 +6,18 @@ Any project can adopt this structure to manage team-shared and developer-private
 
 ## Quick Start
 
-**Unix / macOS / WSL / Git Bash:**
-
-```bash
-git clone https://github.com/wxmlabs/agents-spec /tmp/agents-spec
-sh /tmp/agents-spec/bin/agents-spec.sh init .
-```
-
-**Windows (cmd / PowerShell):**
-
-```bat
-git clone https://github.com/wxmlabs/agents-spec %TEMP%\agents-spec
-%TEMP%\agents-spec\bin\agents-spec.bat init .
-```
-
-No runtime dependencies. Just `sh` (or `bat`) + standard system tools.
-
-## Agent Auto-Install
-
 Give your agent the URL `https://github.com/wxmlabs/agents-spec`, or just say `add agent-spec`.
-The agent reads `AGENTS.md`, discovers the install instructions, and picks the right script for the OS.
+The agent reads `AGENTS.md`, discovers the install instructions, and sets up the framework.
 
-## CLI Commands
+No CLI scripts needed. Your AI agent does the installation for you.
 
-| Command | Unix | Windows |
-|---------|------|---------|
-| init | `sh bin/agents-spec.sh init [dir]` | `bin\agents-spec.bat init [dir]` |
-| validate | `sh bin/agents-spec.sh validate [dir]` | `bin\agents-spec.bat validate [dir]` |
-| list | `sh bin/agents-spec.sh list [dir]` | `bin\agents-spec.bat list [dir]` |
+## What the Agent Will Do
+
+1. Create the `.agents/` directory structure in your project.
+2. Copy framework skills and rules.
+3. Append `.agents/local/` to `.gitignore`.
+4. Create `~/.agent/` user-level directories.
+5. **Tell you to add a rule to your agent's entry point** so it loads skills/rules from all layers.
 
 ## Structure
 
@@ -65,16 +49,10 @@ The agent reads `AGENTS.md`, discovers the install instructions, and picks the r
 - **Skills** = "how to use": workflows, patterns, tool parameter guides.
 - **Encoding**: all agent documents MUST be ASCII only (no emoji, no CJK, no Unicode).
 - **Priority**: project-level > user-level. Within each level: shared rules > local rules; local skills > shared skills.
+- **Agent entry point**: after installation, the agent MUST be told to load documents from all layers.
 
 ## Documentation
 
 - `AGENTS.md` -- project-level agent guidance (includes install instructions for agents)
 - `.agents/README.md` -- skill and rule inventory
 - `.agents/skills/agents-spec/SKILL.md` -- full framework specification
-
-## Scripts
-
-| Script | Platform | Depends on |
-|--------|----------|------------|
-| `bin/agents-spec.sh` | Unix, macOS, WSL, Git Bash | `sh`, `cp`, `mkdir`, `awk` |
-| `bin/agents-spec.bat` | Windows cmd, PowerShell | `cmd`, `powershell` (for encoding check) |
