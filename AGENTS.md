@@ -20,6 +20,9 @@ Files to fetch:
 - `.agents/skills/agents-spec/SKILL.md` from
   `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`
   (place in `{target}/.agents/skills/agents-spec/SKILL.md`)
+- `VERSION` from
+  `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/VERSION`
+  (place in `{target}/.agents/VERSION`)
 - This `AGENTS.md` itself, placed at `{target}/AGENTS.md`
 
 Directories to create (if not exist):
@@ -42,6 +45,7 @@ git clone https://github.com/wxmlabs/agents-spec /tmp/agents-spec
 # Copy framework files, skipping any that already exist in target
 mkdir -p {target}/.agents/skills/agents-spec
 cp -n /tmp/agents-spec/.agents/skills/agents-spec/SKILL.md {target}/.agents/skills/agents-spec/SKILL.md
+cp -n /tmp/agents-spec/VERSION {target}/.agents/VERSION
 cp -n /tmp/agents-spec/AGENTS.md {target}/AGENTS.md
 ```
 
@@ -52,11 +56,13 @@ Then create empty directories, append `.gitignore`, and create `README.md` as in
 1. Create `.agents/rules/` (empty directory)
 2. Create `.agents/skills/agents-spec/` with `SKILL.md` from
    `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`
-3. Create `.agents/local/rules/` and `.agents/local/skills/` (empty)
-4. Create `.agents/README.md` listing the skill inventory
-5. Write this `AGENTS.md` to the target project root
-6. Append `.agents/local/` to the target's `.gitignore`
-7. Create `~/.agent/rules/`, `~/.agent/skills/`, `~/.agent/local/rules/`,
+3. Create `.agents/VERSION` with content from
+   `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/VERSION`
+4. Create `.agents/local/rules/` and `.agents/local/skills/` (empty)
+5. Create `.agents/README.md` listing the skill inventory
+6. Write this `AGENTS.md` to the target project root
+7. Append `.agents/local/` to the target's `.gitignore`
+8. Create `~/.agent/rules/`, `~/.agent/skills/`, `~/.agent/local/rules/`,
    `~/.agent/local/skills/` (empty)
 
 ### After Installation: Modify Agent Entry Point
@@ -84,6 +90,7 @@ For skills: local skills > shared skills.
 Manual check that all required files and directories exist:
 - `.agents/rules/` exists
 - `.agents/skills/agents-spec/SKILL.md` exists
+- `.agents/VERSION` exists
 - `.agents/local/rules/` and `.agents/local/skills/` exist
 - `AGENTS.md` exists at project root
 - `.gitignore` contains `.agents/local/`
@@ -105,6 +112,7 @@ performing tasks. Documents are loaded in priority order (see below).
 
 ```
 .agents/
+  VERSION                       # Framework version (for update checks)
   README.md                     # Project-level inventory of skills/rules
   rules/                        # Shared rules (committed to git, team-wide)
   skills/                       # Shared skills (committed to git, team-wide)

@@ -51,8 +51,17 @@ No CLI scripts needed. Your AI agent does the installation for you.
 - **Priority**: project-level > user-level. Within each level: shared rules > local rules; local skills > shared skills.
 - **Agent entry point**: after installation, the agent MUST be told to load documents from all layers.
 
+## Version
+
+The current framework version is stored in `VERSION` at the repo root.
+When installed, it is copied to `.agents/VERSION` in the target project.
+
+An agent working in an agents-spec project can check for updates by comparing
+`.agents/VERSION` against `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/VERSION`.
+
 ## Documentation
 
 - `AGENTS.md` -- project-level agent guidance (includes install instructions for agents)
+- `VERSION` -- current framework version (semver)
 - `.agents/README.md` -- skill and rule inventory
 - `.agents/skills/agents-spec/SKILL.md` -- full framework specification

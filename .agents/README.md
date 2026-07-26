@@ -9,6 +9,7 @@ Upstream: https://github.com/wxmlabs/agents-spec
 
 ```
 .agents/
+  VERSION
   README.md
   rules/
   skills/
@@ -24,7 +25,8 @@ Upstream: https://github.com/wxmlabs/agents-spec
 
 | Skill | Path | Purpose |
 |-------|------|---------|
-|   agents-spec | `skills/  agents-spec/` | (see SKILL.md) |
+|   agents-spec   | `skills/agents-spec/` | (see SKILL.md) |
+|   VERSION        | `VERSION`             | agents-spec framework version |
 
 ### Shared Rules
 

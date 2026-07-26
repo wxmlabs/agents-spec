@@ -10,6 +10,7 @@ description: |
   "agent framework", "skill priority", "rule priority", "add agents-spec",
   "install agent-spec", etc.
   Upstream: https://github.com/wxmlabs/agents-spec
+  Version: see VERSION file at repo root or .agents/VERSION in installed projects.
 ---
 
 # Agent Spec Skill
@@ -25,6 +26,33 @@ Repository: https://github.com/wxmlabs/agents-spec
 
 To install this framework into a new project, agents should read the `AGENTS.md` at
 the upstream repo root for the latest installation instructions.
+
+## Version
+
+The framework version is stored in a plain-text `VERSION` file at the repo root.
+When installed into a project, it is copied to `.agents/VERSION`.
+
+### How Agents Check for Updates
+
+An agent working in a project that has adopted agents-spec SHOULD periodically
+check whether the installed version is the latest.
+
+**Check procedure:**
+
+1. Read the installed version from `{project}/.agents/VERSION`.
+   If this file does not exist, the installation predates versioning (treat as "0.0.0").
+
+2. Fetch the latest version from the upstream repository:
+   `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/VERSION`
+
+3. Compare the two versions using semantic versioning rules:
+   - If local < upstream: the framework is outdated. Inform the user and offer to update.
+     To update, re-run the installation using the latest `AGENTS.md` instructions.
+   - If local == upstream: the framework is current.
+   - If local > upstream: local is ahead (possibly a dev/pre-release). No action needed.
+
+4. When the user says "check agent-spec version", "is agents-spec up to date",
+   "update agent-spec", or similar, perform this check immediately.
 
 ## Directory Structure
 
