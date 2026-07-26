@@ -63,6 +63,15 @@ Within each level: shared rules override local rules; local skills override shar
 When instructed to "add agents-spec", "install agent-spec", or given the URL
 `https://github.com/wxmlabs/agents-spec`, install this framework into the target project.
 
+### Pre-Install Check
+
+Before installing, check whether the framework is already installed:
+- If `.agents/VERSION` exists in the target project, skip installation and instead
+  run the upgrade flow (see "How Agents Perform Upgrades" in
+  `.agents/skills/agents-spec/SKILL.md` or fetch from
+  `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`).
+- If `.agents/VERSION` does NOT exist, proceed with a fresh installation below.
+
 ### Method 1: Fetch from upstream repo (recommended)
 
 Fetch the latest framework files from the upstream repository and place them in the
@@ -81,8 +90,13 @@ Files to fetch:
 Directories to create (if not exist):
 - `{target}/.agents/rules/`
 - `{target}/.agents/skills/`
+- `{target}/.agents/skills/agents-spec/`
 - `{target}/.agents/local/rules/`
 - `{target}/.agents/local/skills/`
+- `~/.agent/rules/`
+- `~/.agent/skills/`
+- `~/.agent/local/rules/`
+- `~/.agent/local/skills/`
 
 Then append to `{target}/.gitignore` (if not already present):
 ```
@@ -95,6 +109,9 @@ IMPORTANT: Generate the `.agents/README.md` content specific to the target proje
 Do NOT copy the `.agents/README.md` from the upstream agents-spec repo -- that file
 is the upstream repo's own inventory, not a framework template.
 
+After all steps above are complete, run the Post-Install Validation checklist
+(see below) to confirm everything is in place.
+
 ### Method 2: Clone and copy
 
 ```bash
@@ -106,7 +123,9 @@ cp -n /tmp/agents-spec/VERSION {target}/.agents/VERSION
 cp -n /tmp/agents-spec/AGENTS.md {target}/AGENTS.md
 ```
 
-Then create empty directories, append `.gitignore`, and create `README.md` as in Method 1.
+Then create empty directories (including `~/.agent/` dirs), append `.gitignore`,
+and create `README.md` as in Method 1. After all steps are complete, run the
+Post-Install Validation checklist.
 
 ### Method 3: Create manually
 
@@ -122,6 +141,8 @@ Then create empty directories, append `.gitignore`, and create `README.md` as in
 8. Create `~/.agent/rules/`, `~/.agent/skills/`, `~/.agent/local/rules/`,
    `~/.agent/local/skills/` (empty)
 
+After all steps are complete, run the Post-Install Validation checklist.
+
 ### After Installation: For Agent Systems Without AGENTS.md Support
 
 Many modern IDEs (VS Code with Copilot, Cursor, CodeBuddy, Windsurf, etc.)
@@ -134,7 +155,11 @@ to their agent's main entry point (system prompt, project rules, or equivalent).
 
 ## Post-Install Validation
 
-Manual check that all required files and directories exist:
+CRITICAL: After completing installation, you MUST run this validation checklist.
+
+**Validation checklist:**
+
+Check that all required files and directories exist:
 - `.agents/rules/` exists
 - `.agents/skills/agents-spec/SKILL.md` exists
 - `.agents/VERSION` exists
@@ -143,6 +168,10 @@ Manual check that all required files and directories exist:
 - `.gitignore` contains `.agents/local/`
 - `~/.agent/rules/` and `~/.agent/skills/` exist
 - `~/.agent/local/rules/` and `~/.agent/local/skills/` exist
+
+After the checklist passes, execute Steps 1 through 5 of the Agent Loading Protocol
+above to confirm that all layers load without errors. Report any missing or
+unreadable files to the user.
 
 ## Framework Reference
 
