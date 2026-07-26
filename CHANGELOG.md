@@ -25,6 +25,23 @@ Format:
 
 ---
 
+## [0.1.2] - 2026-07-27
+
+### Changes
+
+- **Removed**: `.agents/VERSION` from the source repository (redundant with root `VERSION`).
+- **Changed**: DEV_RULES.md release procedure simplified (removed `cp VERSION .agents/VERSION` step).
+- **Fixed**: README.md encoding rule synced with other documents.
+- **Fixed**: `.agents/README.md` stale VERSION references removed.
+
+### Upgrade Actions
+
+1. Update `.agents/VERSION` to 0.1.2.
+
+No installed files changed in this release.
+
+---
+
 ## [0.1.1] - 2026-07-27
 
 ### Changes
