@@ -25,6 +25,23 @@ Format:
 
 ---
 
+## [0.1.3] - 2026-07-27
+
+### Changes
+
+- **Fixed**: User-level directory renamed from `~/.agent/` to `~/.agents/` for consistency with project-level `.agents/`.
+
+### Upgrade Actions
+
+1. Update `.agents/VERSION` to 0.1.3.
+2. Fetch `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/AGENTS.md`
+   and overwrite `{target}/AGENTS.md`.
+3. Fetch `https://raw.githubusercontent.com/wxmlabs/agents-spec/master/.agents/skills/agents-spec/SKILL.md`
+   and overwrite `{target}/.agents/skills/agents-spec/SKILL.md`.
+4. If `~/.agent/` exists, rename it to `~/.agents/`.
+
+---
+
 ## [0.1.2] - 2026-07-27
 
 ### Changes
