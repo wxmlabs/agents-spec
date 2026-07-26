@@ -1,9 +1,62 @@
 # AGENTS.md
 
 agents-spec is a portable `.agents/` directory framework for organizing AI Agent skills and rules.
-This file serves two purposes:
-1. Guide agents installing this framework into a project.
-2. Guide agents working in a project that has adopted this framework.
+This file is the agent entry point. It serves three purposes:
+1. Define the loading protocol -- when an agent reads this file, it knows what to load.
+2. Guide agents installing this framework into a project.
+3. Guide agents working in a project that has adopted this framework.
+
+## Agent Loading Protocol (READ THIS FIRST)
+
+CRITICAL: When you read this file, you MUST execute the following loading protocol
+before performing any task. This applies to agents working in this upstream repo
+AND to agents working in any project that has installed agents-spec.
+
+**Step 1: Load project shared rules**
+
+List and read all files in `.agents/rules/`. These are team-wide conventions.
+
+**Step 2: Load project shared skills**
+
+List and read all files in `.agents/skills/`. These are team-wide workflows and guides.
+
+**Step 3: Load project meta-rules**
+
+Read `AGENTS.md` (this file) and `.agents/README.md`.
+
+**Step 4: Load project local rules and skills**
+
+List and read all files in `.agents/local/rules/` and `.agents/local/skills/`.
+These are developer-private and NOT committed to git.
+
+**Step 5: Load user-level rules and skills**
+
+List and read all files in `~/.agent/rules/` and `~/.agent/skills/` (user-shared).
+Then list and read all files in `~/.agent/local/rules/` and `~/.agent/local/skills/` (user-private).
+
+**Step 6: If working in the upstream agents-spec repo**
+
+Also read `DEV_RULES.md` at the project root for framework development conventions.
+
+### Priority / Conflict Resolution
+
+When the same capability is defined in multiple layers:
+
+**Rules priority (highest to lowest):**
+1. Project shared rules (`.agents/rules/`)
+2. Project meta-rules (`AGENTS.md`, `.agents/README.md`)
+3. Project local rules (`.agents/local/rules/`)
+4. User shared rules (`~/.agent/rules/`)
+5. User local rules (`~/.agent/local/rules/`)
+
+**Skills priority (highest to lowest):**
+1. Project local skills (`.agents/local/skills/`)
+2. Project shared skills (`.agents/skills/`)
+3. User local skills (`~/.agent/local/skills/`)
+4. User shared skills (`~/.agent/skills/`)
+
+In summary: project-level always takes precedence over user-level.
+Within each level: shared rules override local rules; local skills override shared skills.
 
 ## Installation (for AI Agents)
 
@@ -69,25 +122,15 @@ Then create empty directories, append `.gitignore`, and create `README.md` as in
 8. Create `~/.agent/rules/`, `~/.agent/skills/`, `~/.agent/local/rules/`,
    `~/.agent/local/skills/` (empty)
 
-### After Installation: Modify Agent Entry Point
+### After Installation: For Agent Systems Without AGENTS.md Support
 
-CRITICAL: After installing the framework, tell the user they MUST add a rule to
-their agent's main entry point (e.g., the agent's system prompt, project rules,
-or equivalent configuration) instructing the agent to load and follow skill/rule
-documents from all layers. The rule should state:
+Many modern IDEs (VS Code with Copilot, Cursor, CodeBuddy, Windsurf, etc.)
+auto-load `AGENTS.md` as project guidance. In those environments, the loading
+protocol above is self-executing -- no extra configuration is needed.
 
-```
-Before performing any task, read and follow applicable skill/rule documents from:
-1. .agents/skills/ and .agents/rules/ (project shared)
-2. AGENTS.md and .agents/README.md (project meta-rules)
-3. .agents/local/skills/ and .agents/local/rules/ (project local)
-4. ~/.agent/skills/ and ~/.agent/rules/ (user shared)
-5. ~/.agent/local/skills/ and ~/.agent/local/rules/ (user local)
-
-Priority: project-level > user-level.
-For rules: shared rules > local rules.
-For skills: local skills > shared skills.
-```
+If the user's agent system does NOT auto-load `AGENTS.md`, tell the user they
+must add the loading protocol (from the "Agent Loading Protocol" section above)
+to their agent's main entry point (system prompt, project rules, or equivalent).
 
 ## Post-Install Validation
 
@@ -101,19 +144,7 @@ Manual check that all required files and directories exist:
 - `~/.agent/rules/` and `~/.agent/skills/` exist
 - `~/.agent/local/rules/` and `~/.agent/local/skills/` exist
 
-## Agent Skills & Rules
-
-Agent skills and rules are stored in two layers:
-- **Project-level** (`.agents/`) -- committed to the project repository
-- **User-level** (`~/.agent/`) -- shared across all projects for the current user
-
-For the full framework definition, read: `.agents/skills/agents-spec/SKILL.md`.
-
-For the changelog and upgrade instructions, read the upstream `CHANGELOG.md`:
-`https://raw.githubusercontent.com/wxmlabs/agents-spec/master/CHANGELOG.md`
-
-Agents MUST read and follow applicable skill/rule documents from ALL layers when
-performing tasks. Documents are loaded in priority order (see below).
+## Framework Reference
 
 ### Project-level (`.agents/`)
 
@@ -139,26 +170,10 @@ performing tasks. Documents are loaded in priority order (see below).
     skills/                     # User-private skills
 ```
 
-## Priority / Conflict Resolution
+For the full framework definition, read: `.agents/skills/agents-spec/SKILL.md`.
 
-When the same capability is defined in multiple layers, the following priority
-applies (highest to lowest):
-
-**Rules priority:**
-1. Project shared rules (`.agents/rules/`) -- team conventions win
-2. Project meta-rules (`AGENTS.md`, `.agents/README.md`)
-3. Project local rules (`.agents/local/rules/`)
-4. User shared rules (`~/.agent/rules/`)
-5. User local rules (`~/.agent/local/rules/`)
-
-**Skills priority:**
-1. Project local skills (`.agents/local/skills/`)
-2. Project shared skills (`.agents/skills/`)
-3. User local skills (`~/.agent/local/skills/`)
-4. User shared skills (`~/.agent/skills/`)
-
-In summary: project-level always takes precedence over user-level.
-Within each level: shared rules override local rules; local skills override shared skills.
+For the changelog and upgrade instructions, read the upstream `CHANGELOG.md`:
+`https://raw.githubusercontent.com/wxmlabs/agents-spec/master/CHANGELOG.md`
 
 ## Encoding Rule (CRITICAL)
 
