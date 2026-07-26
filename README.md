@@ -47,7 +47,7 @@ No CLI scripts needed. Your AI agent does the installation for you.
 
 - **Rules** = "what to choose": tool priority, constraints, preferences.
 - **Skills** = "how to use": workflows, patterns, tool parameter guides.
-- **Encoding**: all agent documents MUST be ASCII only (no emoji, no CJK, no Unicode).
+- **Encoding**: all agent documents MUST be plain, readable text that agents can parse without ambiguity.
 - **Priority**: project-level > user-level. Within each level: shared rules > local rules; local skills > shared skills.
 - **Agent entry point**: after installation, the agent MUST be told to load documents from all layers.
 

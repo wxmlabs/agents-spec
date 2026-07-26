@@ -9,7 +9,6 @@ Upstream: https://github.com/wxmlabs/agents-spec
 
 ```
 .agents/
-  VERSION
   README.md
   rules/
   skills/
@@ -30,12 +29,6 @@ Upstream: https://github.com/wxmlabs/agents-spec
 ### Shared Rules
 
 (none yet)
-
-### Framework Metadata
-
-| File | Purpose |
-|------|---------|
-|   `VERSION`   | Current agents-spec framework version |
 
 ### Repo-Level Development Files
 
