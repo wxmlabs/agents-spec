@@ -1,3 +1,9 @@
 # Local-only agent files (per-developer)
 .agents/local/
 
+# IDE project directories
+.idea/
+.vscode/
+
+
+
