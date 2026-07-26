@@ -1,0 +1,145 @@
+---
+name: agents-spec
+description: |
+  The reusable .agents/ directory framework for organizing AI Agent skills and rules.
+  This skill defines the directory structure, shared vs local separation (git-tracked vs personal),
+  encoding rules, and priority/conflict resolution between layers.
+  Use this skill when setting up the .agents/ infrastructure in a new project,
+  or when understanding how rules and skills interact in the existing project.
+  Triggers include "set up agent skills", "create agent rules", ".agents directory",
+  "agent framework", "skill priority", "rule priority", "add agents-spec",
+  "install agent-spec", etc.
+  Upstream: https://github.com/wxmlabs/agents-spec
+---
+
+# Agent Spec Skill
+
+## Purpose
+
+Define a portable `.agents/` directory framework for managing AI Agent skills and rules.
+Any project can adopt this structure to organize team-shared and developer-private agent knowledge.
+
+## Upstream
+
+Repository: https://github.com/wxmlabs/agents-spec
+
+To install this framework into a new project, agents should read the `AGENTS.md` at
+the upstream repo root for the latest installation instructions.
+
+## Directory Structure
+
+### Project-level (`.agents/`)
+
+```
+.agents/
+  README.md                     # Project-level inventory of skills/rules
+  rules/                        # Shared rules (committed to git, team-wide)
+    ...                         # Coding standards, naming conventions, etc.
+  skills/                       # Shared skills (committed to git, team-wide)
+    ...                         # Domain knowledge, workflows, tool guides
+  local/                        # Local-only (gitignored, NOT committed)
+    rules/                      # Developer-private rules
+      ...                       # IDE integration, personal preferences
+    skills/                     # Developer-private skills
+      ...                       # IDE-specific integrations, local workflows
+```
+
+### User-level (`~/.agent/`)
+
+```
+~/.agent/
+  rules/                        # User-shared rules (across all projects)
+    ...                         # Personal coding standards, preferences
+  skills/                       # User-shared skills (across all projects)
+    ...                         # Personal workflows, tool knowledge
+  local/
+    rules/                      # User-private rules (per-machine)
+    skills/                     # User-private skills (per-machine)
+```
+
+## Layer Definitions
+
+### Project-level
+
+| Layer | Location | Git | Audience | Purpose |
+|-------|----------|-----|----------|---------|
+| Shared rules | `.agents/rules/` | Committed | Whole team | Coding standards, naming conventions |
+| Shared skills | `.agents/skills/` | Committed | Whole team | Domain knowledge, workflows, tool guides |
+| Local rules | `.agents/local/rules/` | Ignored | Individual dev | IDE integration rules, personal prefs |
+| Local skills | `.agents/local/skills/` | Ignored | Individual dev | IDE-specific integrations, private tools |
+| Project rules | `AGENTS.md`, `.agents/README.md` | Committed | Whole team | Project-level meta-rules |
+
+### User-level
+
+| Layer | Location | Git | Audience | Purpose |
+|-------|----------|-----|----------|---------|
+| User rules | `~/.agent/rules/` | N/A | Current user | Cross-project personal standards |
+| User skills | `~/.agent/skills/` | N/A | Current user | Cross-project personal workflows |
+| User local rules | `~/.agent/local/rules/` | N/A | Current user | Machine-specific rules |
+| User local skills | `~/.agent/local/skills/` | N/A | Current user | Machine-specific skills |
+
+## Priority / Conflict Resolution
+
+When the same capability is defined in multiple layers, the following priority
+applies (highest to lowest):
+
+### Rules Priority
+
+1. Project shared rules (`.agents/rules/`) -- team conventions win
+2. Project meta-rules (`AGENTS.md`, `.agents/README.md`)
+3. Project local rules (`.agents/local/rules/`)
+4. User shared rules (`~/.agent/rules/`)
+5. User local rules (`~/.agent/local/rules/`)
+
+### Skills Priority
+
+1. Project local skills (`.agents/local/skills/`)
+2. Project shared skills (`.agents/skills/`)
+3. User local skills (`~/.agent/local/skills/`)
+4. User shared skills (`~/.agent/skills/`)
+
+In summary: project-level always takes precedence over user-level.
+Within each level: shared rules override local rules; local skills override shared skills.
+
+## Encoding Rule
+
+All files under `.agents/` (SKILL.md, README.md, rule files) MUST use ASCII encoding only.
+No emoji, no CJK characters, no Unicode symbols.
+This ensures reliable processing across all LLM/Agent toolchains.
+
+## Skill File Format
+
+Every skill requires a `SKILL.md` with YAML front matter:
+
+```yaml
+---
+name: skill-name
+description: |
+  What this skill does and when to use it.
+  Include trigger phrases here.
+---
+```
+
+Optional: `references/` subdirectory for detailed tool parameter docs.
+
+## Rule File Format
+
+Rules are plain Markdown (`.md`) files without front matter.
+They define constraints and priority directives, not workflows or how-to guides.
+
+## Setting Up in a New Project
+
+1. Create `.agents/` with the directory structure above.
+2. Add `.agents/local/` to `.gitignore`.
+3. Create `.agents/README.md` with the project's skill/rule inventory.
+4. Add the Encoding Rule and Priority rules to `AGENTS.md`.
+5. Add shared skills/rules under `.agents/skills/` and `.agents/rules/`.
+6. Each developer adds their local skills/rules under `.agents/local/`.
+7. Optionally, create `~/.agent/` directories for cross-project user skills and rules.
+
+## Rules vs Skills: Separation Principle
+
+- **Rules** answer "what to choose": tool priority, constraints, preferences.
+- **Skills** answer "how to use": workflows, patterns, tool parameter guides.
+- Rules are prescriptive (DO / PREFER / AVOID); skills are descriptive (here is how X works).
+- A single capability may span both: rules in `.agents/*/rules/` and skill docs in `.agents/*/skills/`.
