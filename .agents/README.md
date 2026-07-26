@@ -26,8 +26,23 @@ Upstream: https://github.com/wxmlabs/agents-spec
 | Skill | Path | Purpose |
 |-------|------|---------|
 |   agents-spec   | `skills/agents-spec/` | (see SKILL.md) |
-|   VERSION        | `VERSION`             | agents-spec framework version |
 
 ### Shared Rules
 
 (none yet)
+
+### Framework Metadata
+
+| File | Purpose |
+|------|---------|
+|   `VERSION`   | Current agents-spec framework version |
+
+### Repo-Level Development Files
+
+These files exist at the repo root and are NOT installed into user projects.
+They guide agents developing THIS upstream repository.
+
+| File | Purpose |
+|------|---------|
+|   `DEV_RULES.md`   | Development conventions: version bumping, changelog, testing, encoding, file pollution prevention |
+|   `CHANGELOG.md`   | Version history with agent-actionable upgrade actions |

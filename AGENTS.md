@@ -38,6 +38,10 @@ Then append to `{target}/.gitignore` (if not already present):
 
 Create or update `{target}/.agents/README.md` with a skill/rule inventory listing.
 
+IMPORTANT: Generate the `.agents/README.md` content specific to the target project.
+Do NOT copy the `.agents/README.md` from the upstream agents-spec repo -- that file
+is the upstream repo's own inventory, not a framework template.
+
 ### Method 2: Clone and copy
 
 ```bash
